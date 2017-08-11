@@ -14,6 +14,9 @@
 
 -- *Slide* --
 # 1. Spartan's architecture
+-- *Slide End* --
+
+-- *Slide* --
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/spartanlayout.png" width="150%" height="150%" />
 -- *Slide End* --
 
@@ -87,6 +90,9 @@ Our monitoring system is conducted through the NeCATR monitoring services (`http
 
 -- *Slide* --
 # 2. Configuration and Communication
+-- *Slide End* --
+
+-- *Slide* --
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="150%" height="150%" />
 -- *Slide End* --
 
@@ -122,6 +128,9 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 
 -- *Slide* --
 # 3. Karaage, Projects, and Accounts
+-- *Slide End* --
+
+-- *Slide* --
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/karaage.png" width="150%" height="150%" />
 -- *Slide End* --
 
@@ -147,6 +156,9 @@ Once project lead user has been approved, go to the newly created projects and c
 
 -- *Slide* --
 # 4. Job Scheduling and Management
+-- *Slide End* --
+
+-- *Slide* --
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/slurm.jpg" width="150%" height="150%" />
 -- *Slide End* --
 
@@ -202,6 +214,16 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 * Spartan has regular updates of packages and controlled upgrades of the kernel. `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Weekly-Upgrades---Spartan`
 * When upgrading Slurm, SlurmDBD must be upgraded first, always. `https://slurm.schedmd.com/quickstart_admin.html#upgrade`. Detailed instructions on the Wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Upgrades`.
 -- *Slide End* --
+
+
+-- *Slide* --
+# 5.0 Operations
+-- *Slide End* --
+
+-- *Slide* --
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/operation.jpg" />
+-- *Slide End* --
+
 
 -- *Slide* --
 ## 5.1 Project Workflow
