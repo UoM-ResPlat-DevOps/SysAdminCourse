@@ -168,7 +168,11 @@ The Slurm Workload Manager (formerly SLURM, Simple Linux Utility for Resource Ma
 -- *Slide End* --
 
 -- *Slide* --
-The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity. 
+The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
+-- *Slide End* --
+
+-- *Slide* --
+Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -189,6 +193,9 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 ## 4.4 Common Administrator Operations
 * Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`
 * Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`
+-- *Slide End* --
+
+-- *Slide* --
 * Managers often want usage metrics. The following sreport command provides examples of utilisation: e.g.,
 `sreport -t Hours cluster Utilization start=2016-01-01 end=2016-11-10`
 `sreport cluster AccountUtilizationByUser cluster=spartan user=khalid start=2016-01-01 end=2017-01-17`
@@ -197,6 +204,9 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 -- *Slide* --
 * To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`
 * If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
+-- *Slide End* --
+
+-- *Slide* --
 * Then run the drain command `scontrol update nodename=$nodes state=DRAIN reason="$reason"`. The node, if idle, will go to drain. If it it has jobs running it will be marked as `draining`. Node status can be checked with `downbecause`. To return drained nodes to production use `scontrol update nodename=$nodes state=RESUME`.
 -- *Slide End* --
 
