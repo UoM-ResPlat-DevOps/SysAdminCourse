@@ -32,6 +32,16 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 -- *Slide End* --
 
 -- *Slide* --
+## Documentation
+* User documentation starts with https://dashboard.hpc.unimelb.edu.au. This is a git repository, located in `https://github.com/resbaz/spartan-hpc-docs/`
+* We also have `man spartan`, the examples in `/usr/local/common`, and the content for our training courses.
+`https://github.com/UoM-ResPlat-DevOps/SpartanIntro`, `https://github.com/UoM-ResPlat-DevOps/HPCshells`, `https://github.com/UoM-ResPlat-DevOps/SpartanParallel`
+* Most HPC operations information is in the ops-doc wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki`, and software build information is at `https://github.com/UoM-ResPlat-DevOps/HPC`
+* This course is stored at `https://github.com/UoM-ResPlat-DevOps/SysAdminCourse`
+* There is some documentation at `https://unimelbcloud.sharepoint.com/teams/ResearchComputeServices/Shared%20Documents/`
+-- *Slide* --
+
+-- *Slide* --
 # 1. Architecture
 -- *Slide End* --
 
