@@ -45,6 +45,10 @@
 <style type="text/css">.reveal ol {list-style-type: upper-alpha;}</style>
 <!-- Slides go here -->
 <section data-markdown><script type="text/template">
+# Introduction
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/spartanlogo.png" />
+</script></section>
+<section data-markdown><script type="text/template">
 ## Goals for today
 * Part 1: Spartan's architecture
 * Part 2: Configuration and Communication
@@ -180,7 +184,10 @@ Once project lead user has been approved, go to the newly created projects and c
 The Slurm Workload Manager (formerly SLURM, Simple Linux Utility for Resource Management), is a free and open-source job scheduler for Linux and Unix-like systems and combines the functions of a job scheduler and resource manager. It is notable for its efficiency, scalability, reporting tools, and modular design with around 100 optional plugins.
 </script></section>
 <section data-markdown><script type="text/template">
-The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity. 
+The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
+</script></section>
+<section data-markdown><script type="text/template">
+Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity. 
 </script></section>
 <section data-markdown><script type="text/template">
 ## 4.2 Spartan's Partitions
@@ -197,6 +204,8 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 ## 4.4 Common Administrator Operations
 * Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`
 * Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`
+</script></section>
+<section data-markdown><script type="text/template">
 * Managers often want usage metrics. The following sreport command provides examples of utilisation: e.g.,
 `sreport -t Hours cluster Utilization start=2016-01-01 end=2016-11-10`
 `sreport cluster AccountUtilizationByUser cluster=spartan user=khalid start=2016-01-01 end=2017-01-17`
@@ -204,6 +213,8 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 <section data-markdown><script type="text/template">
 * To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`
 * If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
+</script></section>
+<section data-markdown><script type="text/template">
 * Then run the drain command `scontrol update nodename=$nodes state=DRAIN reason="$reason"`. The node, if idle, will go to drain. If it it has jobs running it will be marked as `draining`. Node status can be checked with `downbecause`. To return drained nodes to production use `scontrol update nodename=$nodes state=RESUME`.
 </script></section>
 <section data-markdown><script type="text/template">

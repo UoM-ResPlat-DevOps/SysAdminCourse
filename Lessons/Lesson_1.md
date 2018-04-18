@@ -1,3 +1,9 @@
+
+-- *Slide* --
+# Introduction
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/spartanlogo.png" />
+-- *Slide End* --
+
 -- *Slide* --
 ## Goals for today
 * Part 1: Spartan's architecture
