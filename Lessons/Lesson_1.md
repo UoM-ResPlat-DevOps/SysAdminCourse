@@ -261,7 +261,6 @@ Administrators can specify the new walltime for a job. e.g., `scontrol update jo
 * When upgrading Slurm, SlurmDBD must be upgraded first, always. `https://slurm.schedmd.com/quickstart_admin.html#upgrade`. Detailed instructions on the Wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Upgrades`.
 -- *Slide End* --
 
-
 -- *Slide* --
 # Operations
 -- *Slide End* --
@@ -270,65 +269,59 @@ Administrators can specify the new walltime for a job. e.g., `scontrol update jo
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/operation.jpg" />
 -- *Slide End* --
 
-
 -- *Slide* --
-## 5.1 Project Workflow
+## Project Workflow
 Spartan uses Trello to manage project workflow through "cards" with associated users and content checklists. This is usually for multi-task objectives that are generated internally rather than from user requests. However sometimes user requests via the helpdesk can become Trello cards as well, if of sufficient complexity (the split between helpdesk tickets and Trello cards is not well defined).
 -- *Slide End* --
 
 -- *Slide* --
+## Project Workflow (cont...)
 To access the Spartan HPC Trello, signup at `https://trello.com/signup` and login at `https://trello.com/login` (Google account option). The page URL is located at: `https://trello.com/b/kvLgvEZa/hpc` with the following Menus; "To Do", "On Hold", "Doing", "Admin & Doco", and "Done".
 -- *Slide End* --
 
 -- *Slide* --
-## 5.2 Helpdesk
+## Helpdesk
 Spartan (currently) uses the NeCTAR Freshdesk system for managing user request tickets at `https://support.ehelp.edu.au/helpdesk/dashboard`. Our group is `UoM HPC`. General users are accredited by administrators and the existing current implementation has a national scope. In nearly all cases, ticket creation and responses are carried out by email as the single point of entry and communication.
 -- *Slide End* --
 
 -- *Slide* --
-Freshdesk comes with SOAP etc and several REST APIs (ticket, user, agent, companies, forum (several subcategories), solution (several subcategories), time entries, survey, groups), full text-search capability, built-in customer satisfaction surveys, and an extensive range of customer support contact methods (email, web, phone, instant messaging).
+## Helpdesk (cont..)
+Freshdesk comes with SOAP etc and several REST APIs (ticket, user, agent, companies, forum (several subcategories), solution (several subcategories), time entries, survey, groups), full text-search capability, built-in customer satisfaction surveys, and an extensive range of customer support contact methods (email, web, phone, instant messaging). Performance reports are automatically sent to the Head of Research Compute Services.
 -- *Slide End* --
 
 -- *Slide* --
-As a general workflow if you can respond to a ticket, assign it to yourself first, then respond. Avoid responding to tickets owned by another person, but if you have an idea or suggestion, send it through Slack to the owner or as a private note on the ticket. Make sure that close tickets (set to resolved). Provide solutions to the user's problem or, if this is not possible, provide alternatives.
+## Helpdesk (cont..)
+As a general workflow if you can respond to a ticket, assign it to yourself first, then respond. Avoid responding to tickets owned by another person, but if you have an idea or suggestion, send it through Slack to the owner or as a private note on the ticket. Make sure that close tickets (set to resolved). Provide solutions to the user's problem or, if this is not possible, provide alternatives. Own the problem. Take the user's perspective. 
 -- *Slide End* --
 
 -- *Slide* --
-## 5.3 Software Builds
-As with all HPC systems, whenever possible software is built from source. Usually this to ensure maximum optimisation of code (typical performance improvements are around 30%), and sometimes it is to ensure that the software can be installed in the first place. Most of all however, it is to ensure that multiple version of the same software can be installed. This provides consistency and better reproducibility in code, whilst also allowing for different features. To achieve this, environment modules are employed. 
+## Software Builds
+As with all HPC systems, whenever possible software is built from source. Usually this to ensure maximum optimisation of code, and sometimes it is to ensure that the software can be installed in the first place. Most of all however, it is to ensure that multiple version of the same software can be installed. This provides consistency and better reproducibility in code, whilst also allowing for different features. To achieve this, environment modules are employed. 
 -- *Slide End* --
 
 -- *Slide* --
+## Software Builds (cont...)
 In particular Spartan uses the Easybuild system to ensure build consistency and which incorporates the LMod environment modules system. LMod is virtually identical in most cases to the TCL-based environment modules system. Easybuild requires a little explanation. Essentially it provides a repository of Python scripts to a particular software build ("Easybuild recipes"), which includes version numbers, dependencies, toolchains etc. These recipes in turn call an EasyBlock, which is a configuration style (e.g., Binary, ConfigureMake) and often specific to an application.
 -- *Slide End* --
 
 -- *Slide* --
+## Software Builds (cont...)
 Easybuild exists as a build user and has its own module file. It is important to purge existing modules before running an EasyBuild script.
 ```
-ssh root@spartan-m.hpc.unimelb.edu.au   
-su - easybuild   
-module purge   
-module load EasyBuild   
-cd /usr/local/easybuild/ebfiles_repo/   
+ssh root@spartan-m.hpc.unimelb.edu.au
+su easybuild
+module purge
+module load EasyBuild
+cd /usr/local/easybuild/ebfiles_repo/
+cd Valgrind
+eb Valgrind-3.13.0-GCC-6.2.0.eb
+eb Valgrind-3.12.0-intel-2017.u2.eb
 ```
 -- *Slide End* --
 
 -- *Slide* --
 ## 5.4 Training
-Many users (even post-doctoral researchers) require basic training in Linux command line, a requisite skill for HPC use. Extensive training programme for researchers available using andragogical methods, including day-long courses in "Introduction to Linux and HPC Using Spartan", "Linux Shell Scripting for High Performance Computing", and "Parallel Programming On Spartan". 
--- *Slide End* --
-
--- *Slide* --
-Documentation online (Github, Website, and man pages) and plenty of Slurm examples on system.
-Github:
-`https://github.com/UoM-ResPlat-DevOps/SpartanIntro`   
-`https://github.com/UoM-ResPlat-DevOps/HPCshells`    
-`https://github.com/UoM-ResPlat-DevOps/SpartanIntro`   
-On Spartan:
-`man spartan`   
-`/usr/local/common/`   
-Website:
-`https://dashboard.hpc.unimelb.edu.au`   
+Many users (even post-doctoral researchers) require basic training in Linux command line, a requisite skill for HPC use. Extensive training programme for researchers available using andragogical methods, including day-long courses in "Introduction to Linux and HPC Using Spartan", "Linux Shell Scripting for High Performance Computing", and "Parallel Programming On Spartan". We have run specialist courses (e.g., for Orygen) are planning a Spartan to NCI transition course, and a GPGPU programming course.
 -- *Slide End* --
 
 -- *Slide* --
