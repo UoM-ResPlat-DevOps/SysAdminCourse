@@ -1,4 +1,3 @@
-
 -- *Slide* --
 # Introduction
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/spartanlogo.png" />
@@ -17,7 +16,7 @@
 
 -- *Slide* --
 ## A Team-Building Exercise
-Not every group that works together is a team. A team is a group that share common goals, are mutually accountable for delivering goals, are interdependent, possess complementary knowledge and skills, interact effectively, and see integration with each other as a responsibility. As a team, we have a purpose - to build, maintain, and develop the Spartan HPC system and the new GPGPU partition. We have specific members with roles, we have resources. 
+Not every group that works together is a team. A team is a group that shares common goals, are mutually accountable for delivering goals, are interdependent, possess complementary knowledge and skills, interact effectively, and see integration with each other as a responsibility. As a team, we have a purpose - to build, maintain, and develop the Spartan HPC system and the new GPGPU partition. We have specific members with roles, we have resources. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -27,19 +26,27 @@ The people involved in Spartan support and development have a great diversity of
 
 -- *Slide* --
 ## Slack
-The NeCTAR research cloud runs a Slack service for synchronous communication between groups and individuals. The main relevant channel is `\#uom-hpc` and `\#uom-ops`. Slack is useful for providing alerts from humans that require a quick intervention from others, or to report on active task activities.
+The NeCTAR research cloud runs a Slack service for synchronous communication between groups and individuals. The main relevant channel is `#uom-hpc` and `#uom-ops`. Slack is useful for providing alerts from humans that require a quick intervention from others, or to report on active task activities.
 `https://researchcloud.slack.com/`   
 -- *Slide End* --
 
 -- *Slide* --
 ## Documentation
-* User documentation starts with https://dashboard.hpc.unimelb.edu.au. This is a git repository, located in `https://github.com/resbaz/spartan-hpc-docs/`
-* We also have `man spartan`, the examples in `/usr/local/common`, and the content for our training courses.
-`https://github.com/UoM-ResPlat-DevOps/SpartanIntro`, `https://github.com/UoM-ResPlat-DevOps/HPCshells`, `https://github.com/UoM-ResPlat-DevOps/SpartanParallel`
-* Most HPC operations information is in the ops-doc wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki`, and software build information is at `https://github.com/UoM-ResPlat-DevOps/HPC`
-* This course is stored at `https://github.com/UoM-ResPlat-DevOps/SysAdminCourse`
-* There is some documentation at `https://unimelbcloud.sharepoint.com/teams/ResearchComputeServices/Shared%20Documents/`
+* User documentation starts with https://dashboard.hpc.unimelb.edu.au. This is a git repository, located in `https://github.com/resbaz/spartan-hpc-docs/`  
+* We also have `man spartan`, the examples in `/usr/local/common`, and the training courses. `https://github.com/UoM-ResPlat-DevOps/SpartanIntro`, `https://github.com/UoM-ResPlat-DevOps/HPCshells`, `https://github.com/UoM-ResPlat-DevOps/SpartanParallel`   
+-- *Slide End* --
+
 -- *Slide* --
+## Documentation (cont..)
+Most HPC operations information is in the ops-doc wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki`, and software build information is at `https://github.com/UoM-ResPlat-DevOps/HPC` 
+This course is stored at `https://github.com/UoM-ResPlat-DevOps/SysAdminCourse`   
+-- *Slide End* --
+
+-- *Slide* --
+## Documentation (cont..)
+There is some documentation at `https://unimelbcloud.sharepoint.com/teams/ResearchComputeServices/Shared%20Documents/`   
+Important short notices can be added to the Message-of-the-Day at `/etc/my_motd`
+-- *Slide End* --
 
 -- *Slide* --
 # Architecture
@@ -63,17 +70,22 @@ Spartan is as a hybrid HPC and cloud compute system that is orientated towards m
 
 -- *Slide* --
 ## Network
-The cloud nodes are connected via Cisco Nexus 10Gbe TCP/IP 60 usec latency (mpi- pingpong); and the bare metal Mellanox 2100 Cumulos Linux 40Gbe TCP/IP 6.85 usec latency and then RDMA Ethernet 1.15 usec latency. Later was superior to Infiniband FD14 (1.17 usec). Four different VLANs are used for communication within the cluster (IPMI baremetal), build and management (baremetal), main cluster traffic, and RoCE traffic.
+The cloud nodes are connected via Cisco Nexus 10Gbe TCP/IP 60 usec latency (mpi- pingpong); and the bare metal Mellanox 2100 Cumulus (mostly v3.5.3) Linux 40Gbe with TCP/IP 6.85 usec latency and then RDMA Ethernet 1.15 usec latency. Later was superior to Infiniband FD14 (1.17 usec). Four different VLANs are used for communication within the cluster (IPMI baremetal), build and management (baremetal), main cluster traffic, and RoCE traffic.
 -- *Slide End* --
 
 -- *Slide* --
 ## Network (cont...)
-The new GPGPUs have six racks requiring network for data, inband communication and out-of-band communication, with 14 nodes per rack, requiring 168 data ports, 84 * 1G inband ports and 84*1G out-of-band ports with Mellanox ConnectX direct connect cards The network connection speed will be to 2 x 50Gbps (total of 100Gbps) connections per node, all connected to a Mellanox SN2100 switch for data, and more generic switches for inband and out-of-band.
+The new GPGPUs have six racks requiring network for data, inband communication and out-of-band communication, with 14 nodes per rack, requiring 168 data ports, 84 x 1G inband ports and 84 x 1G out-of-band ports with Mellanox ConnectX direct connect cards The network connection speed will be to 2 x 50Gbps (total of 100Gbps) connections per node, all connected to a Mellanox SN2100 switch for data, and more generic switches for inband and out-of-band.
 -- *Slide End* --
 
 -- *Slide* --
 ## Storage
-There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable in /data/projects) and applications directories across all nodes, being replaced with CephFS using Near-Line SAS. Applications directory currently on management node; was a virtual machine, now physical.  Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. 
+There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable in /data/projects) and applications directories across all nodes, being replaced with CephFS using Near-Line SAS. Applications directory currently on management node; was a virtual machine, now physical.  
+-- *Slide End* --
+
+-- *Slide* --
+## Storage (cont..)
+Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -130,7 +142,7 @@ Our monitoring system is conducted through the NeCATR monitoring services (`http
 -- *Slide End* --
 
 -- *Slide* --
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="100%" height="100%" />
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="75%" height="75%" />
 -- *Slide End* --
 
 -- *Slide* --
@@ -172,13 +184,17 @@ Spartan's Karaage is located at `https://dashboard.hpc.unimelb.edu.au/karaage/`.
 
 -- *Slide* --
 ## Users
-Users belong to accounts, and accounts belong to projects. When a user applies for an account and project this will trigger a pending user and project on Karaage, after it has been approved by the Head of Research Compute. It is worth checking to see if the project applicant has actually requested a cluster acocunt. Sometimes the user just forgets to tick the box. However, if you see a professor/manager applying, they actually might not need access to the clusters. Check with the users before tick it for them.
+Users belong to accounts, and accounts belong to projects. When a user applies for an account and project this will trigger a pending user and project on Karaage, after it has been approved by the Head of Research Compute. It is worth checking to see if the project applicant has actually requested a cluster acocunt. Sometimes the user just forgets to tick the box. However, if you see a professor/manager applying, they actually might not need access to the clusters. Check with the users before ticking it for them.
 -- *Slide End* --
 
 -- *Slide* --
-Once project lead user has been approved, go to the newly created projects and click on Grant Access next to the user to make them the Project leader. This will allow us to hand off the management of the projects to the users. Then create a project directory. If a directory with project name in `/data/projects` (usually punimXXXX) has not been created:
-`cd /root/`
-`./mkproject.sh $project_name`
+## Users (cont..)
+Once project lead user has been approved, go to the newly created projects and click on Grant Access next to the user to make them the Project leader. This will allow us to hand off the management of the projects to the users. Then create a project directory. If a directory with project name in `/data/projects` (usually punimXXXX) has not been created: `cd /root/` `./mkproject.sh $project_name`
+-- *Slide End* --
+
+-- *Slide* --
+## Users (cont..)
+Users often have problems with logging in for a variety of reasons. Some forget their password (refer to `http://dashboard.hpc.unimelb.edu.au` or ServiceNow), or confuse their password with the University password. A failure to login several times will result in fail2ban triggering. A particular challenge arises when people wish to become users but have no SAML identity. In these cases, the account has to be manually created, the user assigned to the project, and their password reset.
 -- *Slide End* --
 
 -- *Slide* --
@@ -196,16 +212,19 @@ The Slurm Workload Manager (formerly SLURM, Simple Linux Utility for Resource Ma
 
 -- *Slide* --
 ## Slurm (cont...)
-The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. 
-
-The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
+Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity.
 -- *Slide End* --
 
 -- *Slide* --
 ## Slurm (cont...)
-Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity.
+The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node - this also has to be restarted after a configuration change. 
+-- *Slide End* --
 
+-- *Slide* --
+## Slurm (cont...)
 The slurm configuration file is located at `/usr/local/slurm/etc/slurm.conf` on the management node. This includes various resource limits, partitions etc. If Slurm is reconfigured, run `/usr/local/resplat/sbin/slurm-run-jobs.sh` to bring all partitions back up.
+
+The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -225,40 +244,45 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 
 -- *Slide* --
 ## Job Control
-Users and administrators may cance a job with `scancel [jobid]`
-Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`
-Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`
+Users and administrators may cance a job with `scancel [jobid]`   
+Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`   
+-- *Slide End* --
+
+-- *Slide* --
+## Job Control (cont..)
+Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`   
+We have a script for for checking bad jobs `check_bad_jobs.sh` and one for users `check_my_bad_jobs.sh`
 -- *Slide End* --
 
 -- *Slide* --
 ## Slurm Metrics
-* Managers often want usage metrics. The following sreport command provides examples of utilisation: e.g.,
-`sreport -t Hours cluster Utilization start=2016-01-01 end=2016-11-10`
+Managers often want usage metrics. The following sreport command provides examples of utilisation: e.g.,
+`sreport -t Hours cluster Utilization start=2016-01-01 end=2016-11-10`   
 `sreport cluster AccountUtilizationByUser cluster=spartan user=khalid start=2016-01-01 end=2017-01-17`
 -- *Slide End* --
 
 -- *Slide* --
 ## Deployment
-* To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`
-* If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
+To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`   
+If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
 -- *Slide End* --
 
 -- *Slide* --
 ## Deployment (cont...)
-* Then run the drain command `scontrol update nodename=$nodes state=DRAIN reason="$reason"`. The node, if idle, will go to drain. If it it has jobs running it will be marked as `draining`. Node status can be checked with `downbecause`. To return drained nodes to production use `scontrol update nodename=$nodes state=RESUME`.
+Then run the drain command `scontrol update nodename=$nodes state=DRAIN reason="$reason"`. The node, if idle, will go to drain. If it it has jobs running it will be marked as `draining`. Node status can be checked with `downbecause`. To return drained nodes to production use `scontrol update nodename=$nodes state=RESUME`.
 -- *Slide End* --
 
 -- *Slide* --
 ## Deployment (cont..)
 * You can stop Slurm from scheduling jobs on a per partition basis by setting that partition's state to DOWN. Set its state UP to resume scheduling. For example:
-`$ scontrol update PartitionName=$partition State=DOWN`
+`$ scontrol update PartitionName=$partition State=DOWN`   
 `$ scontrol update PartitionName=$partition State=UP`
 -- *Slide End* --
 
 -- *Slide* --
 ## Spartan Upgrades
-* Spartan has regular updates of packages and controlled upgrades of the kernel. `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Weekly-Upgrades---Spartan`
-* When upgrading Slurm, SlurmDBD must be upgraded first, always. `https://slurm.schedmd.com/quickstart_admin.html#upgrade`. Detailed instructions on the Wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Upgrades`.
+When upgrading Slurm, SlurmDBD must be upgraded first, always. `https://slurm.schedmd.com/quickstart_admin.html#upgrade`. Detailed instructions on the Wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Upgrades`.   
+We have a risk register for when significant failure results due to open bugs on our infrastructure. `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Risk-Register`
 -- *Slide End* --
 
 -- *Slide* --
@@ -295,28 +319,41 @@ As a general workflow if you can respond to a ticket, assign it to yourself firs
 -- *Slide End* --
 
 -- *Slide* --
+## HPC Support Policy 
+We have an HPC Support Policy (`goo.gl/UPv4c8`). This includes policy for locking accounts, time of operations, code of conduct, service level targets, incident response handling, and priority users.
+-- *Slide End* --
+
+-- *Slide* --
 ## Software Builds
 As with all HPC systems, whenever possible software is built from source. Usually this to ensure maximum optimisation of code, and sometimes it is to ensure that the software can be installed in the first place. Most of all however, it is to ensure that multiple version of the same software can be installed. This provides consistency and better reproducibility in code, whilst also allowing for different features. To achieve this, environment modules are employed. 
 -- *Slide End* --
 
 -- *Slide* --
 ## Software Builds (cont...)
-In particular Spartan uses the Easybuild system to ensure build consistency and which incorporates the LMod environment modules system. LMod is virtually identical in most cases to the TCL-based environment modules system. Easybuild requires a little explanation. Essentially it provides a repository of Python scripts to a particular software build ("Easybuild recipes"), which includes version numbers, dependencies, toolchains etc. These recipes in turn call an EasyBlock, which is a configuration style (e.g., Binary, ConfigureMake) and often specific to an application.
+In particular Spartan uses the Easybuild system to ensure build consistency and which incorporates the LMod environment modules system. LMod is virtually identical in most cases to the TCL-based environment modules system. 
+-- *Slide End* --
+
+-- *Slide* --
+## Software Builds (cont...)
+Easybuild requires a little explanation. Essentially it provides a repository of Python scripts to a particular software build ("Easybuild recipes"), which includes version numbers, dependencies, toolchains etc. These recipes in turn call an EasyBlock, which is a configuration style (e.g., Binary, ConfigureMake) and often specific to an application.
 -- *Slide End* --
 
 -- *Slide* --
 ## Software Builds (cont...)
 Easybuild exists as a build user and has its own module file. It is important to purge existing modules before running an EasyBuild script.
 ```
-ssh root@spartan-m.hpc.unimelb.edu.au
-su easybuild
-module purge
-module load EasyBuild
-cd /usr/local/easybuild/ebfiles_repo/
-cd Valgrind
-eb Valgrind-3.13.0-GCC-6.2.0.eb
-eb Valgrind-3.12.0-intel-2017.u2.eb
+ssh root@spartan-m.hpc.unimelb.edu.au   
+su easybuild   
+module purge   
+module load EasyBuild   
+cd /usr/local/easybuild/ebfiles_repo/Valgrind   
+eb Valgrind-3.13.0-GCC-6.2.0.eb   
 ```
+-- *Slide End* --
+
+-- *Slide* --
+## Licensed Software
+Licensed software has a number of implementations. Some licenses (e.g., Gurobi) require a license file added to the software directory and the user sourcing that path (typically added to the `.bashrc`). Others (e.g., Matlab) have a FlexLM license file on our license server (`lic.hpc.unimelb.edu.au`). In most cases we should create a new group in Karaage and assign qualified users to that group. This incldes software that we have a sitewide license for (e.g., Gaussian).
 -- *Slide End* --
 
 -- *Slide* --
@@ -331,8 +368,3 @@ Many users (even post-doctoral researchers) require basic training in Linux comm
 -- *Slide* --
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/hypnotoad.png" width="150%" height="150%" />
 -- *Slide End* --
-
-
-
-
-
