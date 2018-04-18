@@ -72,7 +72,7 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 `https://researchcloud.slack.com/`   
 </script></section>
 <section data-markdown><script type="text/template">
-# 1. Architecture
+# Architecture
 </script></section>
 <section data-markdown><script type="text/template">
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/spartanlayout.png" width="150%" height="150%" />
@@ -82,61 +82,65 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 Spartan is as a hybrid HPC and cloud compute system that is orientated towards maximising throughput in a cost-efficient manner. There is a smaller traditional HPC partition, a substantial GPGPU partition, and a larger partition of virtual machines from the Melbourne node of the NeCTAR research cloud. This matches the dominance of single-node jobs that were submitted on Spartan's predecessor, Edward. As typical with other HPC systems, it has a management node and two login nodes.
 </script></section>
 <section data-markdown><script type="text/template">
-## Nodes
+## Nodes (cont..)
 "Bare metal" HPC consists of is 44 nodes, 21 GB per core. 2 socket Intel E5-2643 v3 E5-2643, 3.4GHz CPU with 6-core per socket, 192GB memory, 2x 1.2TB SAS drives, 2x 40GbE network. There are currently 68 GPGU nodes dual socket 24 core E5-2650 v4 at 2.20GHz, with 4 Telsa P100s with 128 GB. There is currently 5 GPU nodes, 12xE5-2643 v3 at 3.40GHz with 251 GB and with 4 Tesla K80s. There is also 283 cloud virtual machines with 8 2.3GHz Haswell cores with 8GB per core.
 </script></section>
 <section data-markdown><script type="text/template">
-"Bare metal" HPC consists of is 44 nodes, 21 GB per core. 2 socket Intel E5-2643 v3 E5-2643, 3.4GHz CPU with 6-core per socket, 192GB memory, 2x 1.2TB SAS drives, 2x 40GbE network. There is currently 5 GPU nodes, 12xE5-2643 v3 at 3.40GHz with 251 GB per nodes and with 4*Tesla K80 each. There is also 280 cloud virtual machines with 8  2.3GHz Haswell cores with 8GB per cores.
-</script></section>
-<section data-markdown><script type="text/template">
-## 1.2 Network
+## Network
 The cloud nodes are connected via Cisco Nexus 10Gbe TCP/IP 60 usec latency (mpi- pingpong); and the bare metal Mellanox 2100 Cumulos Linux 40Gbe TCP/IP 6.85 usec latency and then RDMA Ethernet 1.15 usec latency. Later was superior to Infiniband FD14 (1.17 usec). Four different VLANs are used for communication within the cluster (IPMI baremetal), build and management (baremetal), main cluster traffic, and RoCE traffic.
 </script></section>
 <section data-markdown><script type="text/template">
-The new GPGPUs will have six racks requiring network for data, inband communication and out-of-band communication, with 14 nodes per rack, requiring 168 data ports, 84 * 1G inband ports and 84*1G out-of-band ports with Mellanox ConnectX 5 direct connect cards The network connection speed will be to 2 x 50Gbps (total of 100Gbps) connections per node, all connected to a Mellanox SN2100 switch for data, and more generic switches for inband and out-of-band.
+## Network (cont...)
+The new GPGPUs have six racks requiring network for data, inband communication and out-of-band communication, with 14 nodes per rack, requiring 168 data ports, 84 * 1G inband ports and 84*1G out-of-band ports with Mellanox ConnectX direct connect cards The network connection speed will be to 2 x 50Gbps (total of 100Gbps) connections per node, all connected to a Mellanox SN2100 switch for data, and more generic switches for inband and out-of-band.
 </script></section>
 <section data-markdown><script type="text/template">
-## 1.3 Storage
-There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable) and applications directories across all nodes. Additional mountpoins to VicNode Aspera Shares. Applications directory currently on management node, needs to be decoupled. Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. Summary on spartan-m
+## Storage
+There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable in /data/projects) and applications directories across all nodes, being replaced with CephFS using Near-Line SAS. Applications directory currently on management node; was a virtual machine, now physical.  Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. 
 </script></section>
 <section data-markdown><script type="text/template">
+## Storage (cont..)
 ```
-(vSpartan) [root@spartan-m vSpartan]# df -h
-Filesystem                                   Size  Used Avail Use% Mounted on
-/dev/vda1                                     30G   19G   12G  63% /
-/dev/vdb1                                    1.0T  473G  552G  47% /usr/local
-spartan-scratch.hpc.unimelb.edu.au:/scratch  8.0T  5.1T  3.0T  64% /scratch
-spartan-stg2.hpc.unimelb.edu.au:/projects     63T   60T  3.3T  95% /data/projects
-spartan-stg.hpc.unimelb.edu.au:/data01       4.5T  3.2T  1.4T  70% /home
+(vSpartan) [root@spartan-build vSpartan]# df -H
+Filesystem                                 Size  Used Avail Use% Mounted on
+...
+/dev/sdb1                                  8.8T  2.2T  6.7T  24% /usr/local
+/dev/sda2                                  518M  165M  354M  32% /boot
+spartan-stg2.hpc.unimelb.edu.au:/projects   70T   66T  3.7T  95% /data/projects
+tmpfs                                      6.8G     0  6.8G   0% /run/user/0
+ceph-fuse                                  6.0T  5.1T  950G  85% /home
+ceph-fuse                                  429T  216T  214T  51% /scratch
+ceph-fuse                                  500T  172T  329T  35% /data/cephfs
 ```
 </script></section>
 <section data-markdown><script type="text/template">
-There is around 100TB of SAS performance storage from the NetApp Platform, however this is due to be decommissioned at the end of the year. This is currently used for project storage. The default allocation for projects is 500GB. The Project storage is currently divided up into a 70TB mount (maximum NetApp mount size)  and a 30TB mount on standby. There is 8TB of high-performance scratch/ which is a single compute node with SSDs. This is suffering some strain due to be accessed potentially by 350 nodes simultaneously.The application directory is on `/usr/local` is also mounted across all nodes
+## Storage (cont..)
+The default allocation for projects is 500GB, and 50GB for /home directories. A little bit of room for variation on the former. The Project storage is currently divided up into a 70TB mount on NetApp and is currently being moved to CephFS. There is 429TB of high-performance scratch/. The application directory is on `/usr/local` is also mounted across all nodes.
 </script></section>
 <section data-markdown><script type="text/template">
-The current proposed replacement is to use Ceph FS using Near-Line SAS. The recommended expansion is for an additional 6 nodes (to our existing 6) providing a total of 256TB. Unlike our current storage service, it does not have stable snapshot capability, although there is an expectation that this will be available at the end of the end. An intermin backup service (e.g., Commvault) will be used. Likewise the scratch partition will also be replaced with an 128TB of SSD storage. Finally, the application directory will be separated from the management node to its own virtualmachine using the current scratch parttion.
-</script></section>
-<section data-markdown><script type="text/template">
-## 1.4 Operating Systems, Deployment, and Monitoring
+## Operating Systems
 Like nearly all other HPC centres in the world, Spartan uses Linux and specifically the Red Hat distribution for its operating system; RHEL 7.* is used for all nodes, are we're subscribed to Unimelb Red Hat Satellite Server `https://sputnik.its.unimelb.edu.au` 
 </script></section>
 <section data-markdown><script type="text/template">
+## NeCTAR Research Cloud
 There is also significant use of OpenStack's Nova (compute) service for provisioning and decommissioning of virtual machines on demand, which includes the management and login nodes. Specifically Spartan makes use of the following from the NeCTAR research cloud.
 </script></section>
 <section data-markdown><script type="text/template">
+## NeCTAR Research Cloud (cont..)
 Cell: melbourne-qh2-uom   
 Tenant: vSpartan f31a36cc4dec4727a70b87917936f73e   
 Instance flavor: mel.hpc.8c64g (8 vcpus, 64gb of ram, 30gb root, no ephemeral)   
 OS image: os image list --private - usually the latest spartan-rc-gold-YYYYMMDD   
 </script></section>
 <section data-markdown><script type="text/template">
+## DNS
 DNS is managed through `https://ns-q.melbourne.nectar.org.au:9000`. The reverse IP entry ${ip_address} IN PTR vm-${ip_address}.melbourne.nectar.org.au must be deleted otherwise ssh hostbased authentication will not work.
 </script></section>
 <section data-markdown><script type="text/template">
+## Monitoring
 Our monitoring system is conducted through the NeCATR monitoring services (`https://mon.rc.nectar.org.au/`), which for Spartan includes PuppetBoard, Nagios, amd Grafana. In the near future will we also be implementing Xdmod.
 </script></section>
 <section data-markdown><script type="text/template">
-# 2. Configuration and Communication
+# Configuration
 </script></section>
 <section data-markdown><script type="text/template">
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="150%" height="150%" />
