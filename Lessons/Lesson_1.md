@@ -5,17 +5,24 @@
 -- *Slide End* --
 
 -- *Slide* --
-## Goals for today
-* Part 1: Spartan's architecture
-* Part 2: Configuration and Communication
-* Part 3: Karaage, Projects, and Accounts
-* Part 4: Job Scheduling and Management
+## Outline for Today
+* Part 1: Architecture
+* Part 2: Configuration
+* Part 3: Accounts
+* Lunch
+* Part 4: Scheduler
 * Part 5: Operations
+* Part 6: Outreach
 -- *Slide End* --
 
 -- *Slide* --
-## Slide Respository
-* A copy of these slides and sample code is available at: `https://github.com/UoM-ResPlat-DevOps/SysAdminCourse`
+## A Team-Building Exercise
+Not every group that works together is a team. A team is a group that share common goals, are mutually accountable for delivering goals, are interdependent, possess complementary knowledge and skills, interact effectively, and see integration with each other as a responsibility. As a team, we have a purpose - to build, maintain, and develop the Spartan HPC system and the new GPGPU partition. We have specific members with roles, we have resources. 
+-- *Slide End* --
+
+-- *Slide* --
+## A Team-Building Exercise
+The people involved in Spartan support and development have a great diversity of skills, in breadth and depth, and will dovetail with a mentoring program. This workshop is to help everyone get a 'big picture' view of the system, to raise issues of concern and knowledge, to make suggestions to improve Spartan, and our delivery of the service.
 -- *Slide End* --
 
 -- *Slide* --
