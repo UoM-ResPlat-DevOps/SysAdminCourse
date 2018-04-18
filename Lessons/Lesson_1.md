@@ -21,12 +21,18 @@ Not every group that works together is a team. A team is a group that share comm
 -- *Slide End* --
 
 -- *Slide* --
-## A Team-Building Exercise
+## A Team-Building Exercise (cont..)
 The people involved in Spartan support and development have a great diversity of skills, in breadth and depth, and will dovetail with a mentoring program. This workshop is to help everyone get a 'big picture' view of the system, to raise issues of concern and knowledge, to make suggestions to improve Spartan, and our delivery of the service.
 -- *Slide End* --
 
 -- *Slide* --
-# 1. Spartan's architecture
+## Slack
+The NeCTAR research cloud runs a Slack service for synchronous communication between groups and individuals. The main relevant channel is `\#uom-hpc` and `\#uom-ops`. Slack is useful for providing alerts from humans that require a quick intervention from others, or to report on active task activities.
+`https://researchcloud.slack.com/`   
+-- *Slide End* --
+
+-- *Slide* --
+# 1. Architecture
 -- *Slide End* --
 
 -- *Slide* --
@@ -35,9 +41,17 @@ The people involved in Spartan support and development have a great diversity of
 
 
 -- *Slide* --
-## 1.1 Nodes
-Spartan is as a hybrid HPC and cloud compute system that is orientated towards maximising throughput in a cost-efficient manner. There is a smaller traditional HPC partition and a larger partition of virtual machines from the Melbourne node of the NeCTAR research cloud. This matches the dominance of single-node jobs that were submitted on Spartan's predecessor, Edward. As typical with other HPC systems, it has a management node and a login node (extra login nodes added during courses). The management and login nodes are virtual machines.
+## Nodes
+Spartan is as a hybrid HPC and cloud compute system that is orientated towards maximising throughput in a cost-efficient manner. There is a smaller traditional HPC partition, a substantial GPGPU partition, and a larger partition of virtual machines from the Melbourne node of the NeCTAR research cloud. This matches the dominance of single-node jobs that were submitted on Spartan's predecessor, Edward. As typical with other HPC systems, it has a management node and two login nodes.
 -- *Slide End* --
+
+
+-- *Slide* --
+## Nodes
+"Bare metal" HPC consists of is 44 nodes, 21 GB per core. 2 socket Intel E5-2643 v3 E5-2643, 3.4GHz CPU with 6-core per socket, 192GB memory, 2x 1.2TB SAS drives, 2x 40GbE network. There are currently 68 GPGU nodes dual socket 24 core E5-2650 v4 at 2.20GHz, with 4 Telsa P100s with 128 GB. There is currently 5 GPU nodes, 12xE5-2643 v3 at 3.40GHz with 251 GB and with 4 Tesla K80s. There is also 283 cloud virtual machines with 8 2.3GHz Haswell cores with 8GB per core.
+-- *Slide End* --
+
+
 
 -- *Slide* --
 "Bare metal" HPC consists of is 44 nodes, 21 GB per core. 2 socket Intel E5-2643 v3 E5-2643, 3.4GHz CPU with 6-core per socket, 192GB memory, 2x 1.2TB SAS drives, 2x 40GbE network. There is currently 5 GPU nodes, 12xE5-2643 v3 at 3.40GHz with 251 GB per nodes and with 4*Tesla K80 each. There is also 280 cloud virtual machines with 8  2.3GHz Haswell cores with 8GB per cores.
