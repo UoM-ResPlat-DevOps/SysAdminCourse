@@ -130,31 +130,26 @@ Our monitoring system is conducted through the NeCATR monitoring services (`http
 -- *Slide End* --
 
 -- *Slide* --
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="150%" height="150%" />
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/longines1897.jpg" width="100%" height="100%" />
 -- *Slide End* --
 
 -- *Slide* --
-## 2.1 Spartan's Configuration Files
-Spartan's configuration files are stored on a the NeCTAR Git repository as Puppet files.Then they are reviewed through Gerrit and Jenkins. The combination of these features ensures sanity checking and creates "paired systems administration".
+## Spartan's Configuration Files
+Spartan's configuration files are stored on a the NeCTAR Git repository as Puppet files. Then they are reviewed through Gerrit and Jenkins. The combination of these features ensures sanity checking and creates "paired systems administration".
 -- *Slide End* --
 
 -- *Slide* --
 Setup a NeCTAR Gerrit Account with either Launchpad, Yahoo!, or OpenID.
 `https://review.rc.nectar.org.au/login/`
-To clone the puppet repository for Spartan's configuration.
-`git clone ssh://$username@review.rc.nectar.org.au:29418/internal/puppet-spartan.git`
+To clone the puppet repository for Spartan's configuration, see the instructions here:
+`https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Git-Repos`
 Make changes locally, and commit.. `$ git add`, `git commit`, `git review`. 
 -- *Slide End* --
 
 -- *Slide* --
-There is also the operations document Wiki for Spartan.
-`git clone git@github.com:UoM-ResPlat-DevOps/ops-doc.wiki.git`
--- *Slide End* --
-
--- *Slide* --
-## 2.2 Review Process on Gerrit
+## Review Process on Gerrit
 Gerrit is a web-based code collaboration tool. Whilst usually used by software developers, we also use it for configuration review. Modifications to the configuration code can be viewed on web browser and approve or reject those changes. It has an interesting interface. Jenkins provides the integration.
-e.g., `https://review.rc.nectar.org.au/#/c/10294/`
+e.g., `https://review.rc.nectar.org.au/#/c/12944/`
 -- *Slide End* --
 
 -- *Slide* --
@@ -164,7 +159,7 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 -- *Slide End* --
 
 -- *Slide* --
-# 3. Karaage, Projects, and Accounts
+# Accounts
 -- *Slide End* --
 
 -- *Slide* --
