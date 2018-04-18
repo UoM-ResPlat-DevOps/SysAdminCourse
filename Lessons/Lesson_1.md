@@ -9,8 +9,8 @@
 * Part 1: Architecture
 * Part 2: Configuration
 * Part 3: Accounts
-* Lunch
 * Part 4: Scheduler
+* Lunch
 * Part 5: Operations
 * Part 6: Outreach
 -- *Slide End* --
@@ -320,7 +320,11 @@ eb Valgrind-3.12.0-intel-2017.u2.eb
 -- *Slide End* --
 
 -- *Slide* --
-## 5.4 Training
+# User Outreach
+-- *Slide End* --
+
+-- *Slide* --
+## Training
 Many users (even post-doctoral researchers) require basic training in Linux command line, a requisite skill for HPC use. Extensive training programme for researchers available using andragogical methods, including day-long courses in "Introduction to Linux and HPC Using Spartan", "Linux Shell Scripting for High Performance Computing", and "Parallel Programming On Spartan". We have run specialist courses (e.g., for Orygen) are planning a Spartan to NCI transition course, and a GPGPU programming course.
 -- *Slide End* --
 
