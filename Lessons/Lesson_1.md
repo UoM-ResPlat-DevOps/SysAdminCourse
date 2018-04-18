@@ -153,12 +153,6 @@ e.g., `https://review.rc.nectar.org.au/#/c/12944/`
 -- *Slide End* --
 
 -- *Slide* --
-## 2.3 Slack
-The NeCTAR research cloud runs a Slack service for synchronous communication between groups and individuals. The main relevant channel is `\#uom-hpc` and `\#uom-ops`. Slack is useful for providing alerts from humans that require a quick intervention from others, or to report on active task activities.
-`https://researchcloud.slack.com/`
--- *Slide End* --
-
--- *Slide* --
 # Accounts
 -- *Slide End* --
 
@@ -167,16 +161,17 @@ The NeCTAR research cloud runs a Slack service for synchronous communication bet
 -- *Slide End* --
 
 -- *Slide* --
-## 3.1 Karaage
+## Karaage
 Karaage is a cluster account management tool. It can manage users and projects in a cluster and can store the data in various backends and uses a Django framework. User information can be stored in LDAP, Active Directory, or passwd files. On Spartan we use a local LDAP. Karaage has an email notifcayion service, allows for the creation of accounts by project leaders, track software usage, and cluster utilisation (per institute, system, or project) by CPU hours.
 -- *Slide End* --
 
 -- *Slide* --
+## Karaage (cont...)
 Spartan's Karaage is located at `https://dashboard.hpc.unimelb.edu.au/karaage/`. This is also the site of the Spartan website. We are also considering shifting some of the Slurm database functions (at least as a backup) to this site as well.
 -- *Slide End* --
 
 -- *Slide* --
-## 3.2 Accounts and Projects
+## Users
 Users belong to accounts, and accounts belong to projects. When a user applies for an account and project this will trigger a pending user and project on Karaage, after it has been approved by the Head of Research Compute. It is worth checking to see if the project applicant has actually requested a cluster acocunt. Sometimes the user just forgets to tick the box. However, if you see a professor/manager applying, they actually might not need access to the clusters. Check with the users before tick it for them.
 -- *Slide End* --
 
@@ -187,7 +182,7 @@ Once project lead user has been approved, go to the newly created projects and c
 -- *Slide End* --
 
 -- *Slide* --
-# 4. Job Scheduling and Management
+# Scheduler
 -- *Slide End* --
 
 -- *Slide* --
@@ -195,16 +190,22 @@ Once project lead user has been approved, go to the newly created projects and c
 -- *Slide End* --
 
 -- *Slide* --
-## 4.1 Slurm
+## Slurm
 The Slurm Workload Manager (formerly SLURM, Simple Linux Utility for Resource Management), is a free and open-source job scheduler for Linux and Unix-like systems and combines the functions of a job scheduler and resource manager. It is notable for its efficiency, scalability, reporting tools, and modular design with around 100 optional plugins.
 -- *Slide End* --
 
 -- *Slide* --
-The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
+## Slurm (cont...)
+The main daemon for slurm is `slurmctld` which coordinates the queueing of jobs, monitoring node states, and allocating resources to jobs. In addition there is a slurmd daemon running on each compute node. 
+
+The user commands include: `sacct`, `salloc`, `sattach`, `sbatch`, `sbcast`, `scancel`, `scontrol`, `sinfo`, `smap`, `squeue`, `srun`, `strigger` and `sview`. 
 -- *Slide End* --
 
 -- *Slide* --
-Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity. 
+## Slurm (cont...)
+Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https://slurm.schedmd.com/man_index.html`). The Slurm daemons manage nodes, partitions, jobs. The partitions are effectively job queues with resource and user constraints. Jobs are allocated to nodes within a partition according to proirity.
+
+The slurm configuration file is located at `/usr/local/slurm/etc/slurm.conf` on the management node. This includes various resource limits, partitions etc. If Slurm is reconfigured, run `/usr/local/resplat/sbin/slurm-run-jobs.sh` to bring all partitions back up.
 -- *Slide End* --
 
 -- *Slide* --
