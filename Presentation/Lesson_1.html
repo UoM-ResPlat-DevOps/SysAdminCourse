@@ -207,47 +207,51 @@ Man pages exist for all Slurm daemons, commands, and API functions (c.f., `https
 The slurm configuration file is located at `/usr/local/slurm/etc/slurm.conf` on the management node. This includes various resource limits, partitions etc. If Slurm is reconfigured, run `/usr/local/resplat/sbin/slurm-run-jobs.sh` to bring all partitions back up.
 </script></section>
 <section data-markdown><script type="text/template">
-## 4.2 Spartan's Partitions
+## Partitions
 Partitions (equivalent of queues) can be viewed with the `sinfo` command. Nodes can belong to multiple partitions simultaneously. For example, all nodes are in the `debug` partition. Detailed information about a partition and constraints can be viewed with `scontrol show partition`.
 </script></section>
 <section data-markdown><script type="text/template">
-Spartan's main partitions are the `cloud` partition and the `physical` partition. As the names indicate the cloud partition consists of nodes that are virtual machines, where as the physical partition consists of nodes that are on bare metal, running with a higher-speed interconnect. Of note are project specific partitions (e.g., punim0095), departmental partitions (e.g., `water`, `ashley`), and partitions with different architecture (e.g., `gpu`).
+## Partitions (cont...)
+Spartan's main partitions are the `cloud` partition, the `physical` partition, and the `gpgpu` partition. As the names indicate the cloud partition consists of nodes that are virtual machines, where as the physical partition consists of nodes that are on bare metal, running with a higher-speed interconnect, and a partition for LIEF grant gpgpu projects. Of note are project specific partitions (e.g., punim0095), departmental partitions (e.g., `water`, `ashley`), and partitions with different architecture (e.g., `gpu`).
 </script></section>
 <section data-markdown><script type="text/template">
-## 4.3 General Job Submission
+## Job Submission
 Like other scheduling systems Slurm requires that a user submit a batch request of resources, for a particular period of time. The resources include nodes, tasks, tasks-per-node, cpus-per-task, generic resources (e.g., GPUs). Submission is with the `sbatch jobname` command, or `sinteractive` for interactive jobs. Numerous example scripts are in the `/usr/local/common/` directory. Note in particular those in the `IntroLinux`, `HPCshells`, `array`, and `depend` directories.
 </script></section>
 <section data-markdown><script type="text/template">
-## 4.4 Common Administrator Operations
-* Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`
-* Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`
+## Job Control
+Users and administrators may cance a job with `scancel [jobid]`
+Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`
+Administrators can specify the new walltime for a job. e.g., `scontrol update jobid=1042541 TimeLimit=30-0:0:0`
 </script></section>
 <section data-markdown><script type="text/template">
+## Slurm Metrics
 * Managers often want usage metrics. The following sreport command provides examples of utilisation: e.g.,
 `sreport -t Hours cluster Utilization start=2016-01-01 end=2016-11-10`
 `sreport cluster AccountUtilizationByUser cluster=spartan user=khalid start=2016-01-01 end=2017-01-17`
 </script></section>
 <section data-markdown><script type="text/template">
+## Deployment
 * To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`
 * If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
 </script></section>
 <section data-markdown><script type="text/template">
+## Deployment (cont...)
 * Then run the drain command `scontrol update nodename=$nodes state=DRAIN reason="$reason"`. The node, if idle, will go to drain. If it it has jobs running it will be marked as `draining`. Node status can be checked with `downbecause`. To return drained nodes to production use `scontrol update nodename=$nodes state=RESUME`.
 </script></section>
 <section data-markdown><script type="text/template">
+## Deployment (cont..)
 * You can stop Slurm from scheduling jobs on a per partition basis by setting that partition's state to DOWN. Set its state UP to resume scheduling. For example:
 `$ scontrol update PartitionName=$partition State=DOWN`
 `$ scontrol update PartitionName=$partition State=UP`
 </script></section>
 <section data-markdown><script type="text/template">
-* The slurm configuration file is located at `/usr/local/slurm/etc/slurm.conf` on the management node. This includes various resource limits, partitions etc. If Slurm is reconfigured, run `/usr/local/resplat/sbin/slurm-run-jobs.sh` to bring all partitions back up.
-</script></section>
-<section data-markdown><script type="text/template">
+## Spartan Upgrades
 * Spartan has regular updates of packages and controlled upgrades of the kernel. `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Weekly-Upgrades---Spartan`
 * When upgrading Slurm, SlurmDBD must be upgraded first, always. `https://slurm.schedmd.com/quickstart_admin.html#upgrade`. Detailed instructions on the Wiki `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Spartan-Upgrades`.
 </script></section>
 <section data-markdown><script type="text/template">
-# 5.0 Operations
+# Operations
 </script></section>
 <section data-markdown><script type="text/template">
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SysAdminCourse/master/Images/operation.jpg" />
