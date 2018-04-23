@@ -245,7 +245,7 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 -- *Slide* --
 ## Job Control
 Users and administrators may cance a job with `scancel [jobid]`   
-Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`   
+Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]` or `jobscript [jobid]`
 -- *Slide End* --
 
 -- *Slide* --
@@ -264,7 +264,7 @@ Managers often want usage metrics. The following sreport command provides exampl
 -- *Slide* --
 ## Deployment
 To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`   
-If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
+If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-b: ~/jobsonnode.sh $node` or `squeue -w $nodename`
 -- *Slide End* --
 
 -- *Slide* --
@@ -342,7 +342,7 @@ Easybuild requires a little explanation. Essentially it provides a repository of
 ## Software Builds (cont...)
 Easybuild exists as a build user and has its own module file. It is important to purge existing modules before running an EasyBuild script.
 ```
-ssh root@spartan-m.hpc.unimelb.edu.au   
+ssh root@spartan-b.hpc.unimelb.edu.au   
 su easybuild   
 module purge   
 module load EasyBuild   

@@ -110,8 +110,11 @@ The new GPGPUs have six racks requiring network for data, inband communication a
 </script></section>
 <section data-markdown><script type="text/template">
 ## Storage
-* There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable in /data/projects) and applications directories across all nodes, being replaced with CephFS using Near-Line SAS. Applications directory currently on management node; was a virtual machine, now physical.  
-* Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. 
+There are mountpoints to home, projects (/project /home for user data & scripts, NetApp SAS aggregate 70TB usable in /data/projects) and applications directories across all nodes, being replaced with CephFS using Near-Line SAS. Applications directory currently on management node; was a virtual machine, now physical.  
+</script></section>
+<section data-markdown><script type="text/template">
+## Storage (cont..)
+Bare metal nodes have /scratch shared storage for MPI jobs (Dell R730 with 14 x 800GB mixed use SSDs providing 8TB of usable storage, NFS over RDMA)., /var/local/tmp for single node jobs, pcie SSD 1.6TB. 
 </script></section>
 <section data-markdown><script type="text/template">
 ## Storage (cont..)
@@ -242,7 +245,7 @@ Like other scheduling systems Slurm requires that a user submit a batch request 
 <section data-markdown><script type="text/template">
 ## Job Control
 Users and administrators may cance a job with `scancel [jobid]`   
-Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]`   
+Users and administrators can retrieve detailed information about a job with: `scontrol show job [jobid]` or `jobscript [jobid]`
 </script></section>
 <section data-markdown><script type="text/template">
 ## Job Control (cont..)
@@ -258,7 +261,7 @@ Managers often want usage metrics. The following sreport command provides exampl
 <section data-markdown><script type="text/template">
 ## Deployment
 To build a bare-metal or cloud node see: `https://github.com/UoM-ResPlat-DevOps/ops-doc/wiki/Build-Spartan-Nodes`   
-If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-m: ~/jobsonnode.sh $node` or `squeue -w $nodename`
+If a node needs to be upgraded etc, set it for drain. Check the workload of non-cloud partitions beforehand (`sinfo -p $partition`), and jobs on the nodes (`spartan-b: ~/jobsonnode.sh $node` or `squeue -w $nodename`
 </script></section>
 <section data-markdown><script type="text/template">
 ## Deployment (cont...)
@@ -321,7 +324,7 @@ Easybuild requires a little explanation. Essentially it provides a repository of
 ## Software Builds (cont...)
 Easybuild exists as a build user and has its own module file. It is important to purge existing modules before running an EasyBuild script.
 ```
-ssh root@spartan-m.hpc.unimelb.edu.au   
+ssh root@spartan-b.hpc.unimelb.edu.au   
 su easybuild   
 module purge   
 module load EasyBuild   
