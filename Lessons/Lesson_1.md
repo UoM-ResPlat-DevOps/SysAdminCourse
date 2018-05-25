@@ -342,7 +342,7 @@ Easybuild requires a little explanation. Essentially it provides a repository of
 ## Software Builds (cont...)
 Easybuild exists as a build user and has its own module file. It is important to purge existing modules before running an EasyBuild script.
 ```
-ssh root@spartan-b.hpc.unimelb.edu.au   
+ssh root@spartan-build.hpc.unimelb.edu.au   
 su easybuild   
 module purge   
 module load EasyBuild   
